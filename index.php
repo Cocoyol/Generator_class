@@ -1,3 +1,10 @@
+<?php
+    if(empty(session_id()) && !isset($_SESSION)) {
+        session_start();
+        print_r(session_id());
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Template Generate Class</title>
+    <title>Generador de Clases</title>
 
     <!-- Bootstrap -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
@@ -20,71 +27,76 @@
 </head>
 <body>
 
-<!--<div id="addinput">
-    <p>
-        <input type="text" id="p_new" size="20" name="p_new" value="" placeholder="Input Value" /><a href="#" id="addNew">Add</a>
-    </p>
-</div>-->
+<div class="container">
 
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Generador de Clases</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <form id="frmAbrir" method="post" action="abrir.php">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><input class="btn btn-default" type="file" value="Seleccionar Archivo"></li>
+                        <li><input class="btn btn-default" type="submit" value="Abrir"></li>
+                    </ul>
+                </form>
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </nav>
 
-<div class="hidden" id="divTipos">
-        <?php
-            $file = "tipos.json";
-            $json = json_decode(file_get_contents($file));
-
-            $tipoOptions = "";
-            foreach($json as $e) {
-                $tipoOptions .= '<option>'.$e.'</option>';
-            }
-            echo $tipoOptions;
-        ?>
-</div>
-
-<section>
-    <form action="generar.php" method="post">
-        <div class="container">
-            <div class="row">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Nombre de clase</div>
-                    <div class="panel-body">
-                        <div class="form-add">
-                            <div class="row">
-                                <div class="col-sm-9">
-                                    <input class="form-control" type="text" name="clase" value="" placeholder="Nombre"
-                                           required>
-                                </div>
-                                <div class="col-sm-3">
-                                    <a class="btn btn-default" href="#" id="addNew">Agregar variables</a>
-                                </div>
+    <!-- Begin page content -->
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">Nombre de Proyecto</div>
+                <div class="panel-body">
+                    <div class="form-add">
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <input class="form-control" type="text" name="proyecto" value="" placeholder="Proyecto..." required>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Variables</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-fields">
-
-                                <div class="displayinput">
-
-                                </div>
-
-                            </div>
-
-                            <div class="pull-right">
-                                <input class="btn btn-success" type="submit" value="Agregar">
+                            <div class="col-sm-3">
+                                <form method="post" action="editarClase.php">
+                                    <input class="btn btn-default" type="submit" name="Agregar" value="Agregar Clase">
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Lista de clases</div>
+                <div class="panel-body">
+                    <div class="displayInput">
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-inline pull-right">
+                <div class="form-group">
+                    <form method="post" action="limpiar.php" onsubmit="return confirm('¿Realmente quieres borar todo? Se vaciarán todos los campos.');">
+                        <input class="btn btn-danger" type="submit" value="Eliminar">
+                    </form>
+                    </div>
+                <div class="form-group">
+                    <form method="post" action="generar.php">
+                        <input class="btn btn-success" type="submit" value="Generar">
+                    </form>
+                </div>
+            </div>
+            </div>
         </div>
-    </form>
-</section>
+    </div>
+
+</div> <!-- /container -->
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="assets/js/jquery-2.2.4.min.js"></script>
@@ -94,23 +106,21 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var addDiv = $('.displayinput');
-        var i = $('#displayinput').length;
+        var addDiv = $('.displayInput');
+        var i = $('#displayInput').length;
 
         $('#addNew').on('click', function () {
             $('<div id="dynamic">' +
-                    '<div class="col-xs-6">' +
-                        '<input type="text" class="form-control" id="nombreCampo'+i+'" size="40" name="nombreCampo['+i+']" value="" placeholder="Nombre de variable" />' +
-                    '</div>' +
-                    '<div class="col-xs-3">' +
-                        '<select type="text" class="form-control" id="tipoCampo'+i+'" name="tipoCampo['+i+']">' +
-                            $('#divTipos').html() +
-                        '</select>' +
-                    '</div>' +
-                    '<div class="col-xs-3">' +
-                        '<a href="javascript:;" id="remNew" class="btn btn-default">Eliminar variable</a>' +
-                    '</div>' +
-                    '<div class="clearfix">&nbsp;</div>' +
+                '<div class="col-sm-8">' +
+                '<input type="text" class="form-control" id="nombreCampo'+i+'" size="40" name="nombreCampo['+i+']" value="" placeholder="Nombre de Clase" />' +
+                '</div>' +
+                '<div class="col-sm-2">' +
+                '<a href="javascript:;" id="edNew" class="btn btn-default">Editar Clase</a>' +
+                '</div>' +
+                '<div class="col-sm-2">' +
+                '<a href="javascript:;" id="remNew" class="btn btn-default">Eliminar Clase</a>' +
+                '</div>' +
+                '<div class="clearfix">&nbsp;</div>' +
                 '</div>').appendTo(addDiv);
             i++;
             return false;
