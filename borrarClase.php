@@ -1,4 +1,5 @@
 <?php
+include_once "utilidades.php";
 
 if(empty(session_id()) && !isset($_SESSION)) {
     session_start();
@@ -16,7 +17,7 @@ if(!isset($_GET['id'])) {
 }
 
 if(isset($_SESSION['errProyecto'])) {
-    echo "<h1>Identificador de clase no proporcionado.</h1>";
+    echo "<h1>No es posible ejecutar esta acción.</h1>";
 } else {
 
 

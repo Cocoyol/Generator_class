@@ -58,9 +58,9 @@ if(isset($_SESSION["errProyecto"])){
                 <a class="navbar-brand" href="#">Generador de Clases</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                <form id="frmAbrir" method="post" action="abrir.php" enctype="multipart/form-data">
+                <form id="frmAbrir" method="post" action="abrir.php" enctype="multipart/form-data" onsubmit="return confirm('Al abrir este archivo se perderá el proyecto actual,\nse recomienda guardar antes de abrir otro archivo.');">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><input class="btn btn-default" name="archivo" type="file" value="Seleccionar Archivo"></li>
+                        <li><input class="btn btn-default" name="archivo" type="file" accept="application/json" value="Seleccionar Archivo"></li>
                         <li><input class="btn btn-default" type="submit" value="Abrir"></li>
                     </ul>
                 </form>

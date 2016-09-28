@@ -1,11 +1,12 @@
 <?php
+
     if(empty(session_id()) && !isset($_SESSION)) {
         session_start();
         print_r(session_id());
+
     }
 
     print_r($_SESSION);
-
     $id = (isset($_GET['id']))?$_GET['id']:0;
 
 ?>

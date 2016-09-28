@@ -1,4 +1,5 @@
 <?php
+include_once "utilidades.php";
 
 if(empty(session_id()) && !isset($_SESSION)) {
     session_start();
@@ -7,4 +8,4 @@ if(empty(session_id()) && !isset($_SESSION)) {
 print_r($_SESSION);
 print_r($_POST);
 
-unset($_SESSION['clases']);
+limpiarProyecto();

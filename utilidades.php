@@ -24,3 +24,9 @@ function limpiarErroresSesiones() {
     unset($_SESSION['errProyecto']);
     unset($_SESSION['errClase']);
 }
+
+function limpiarProyecto() {
+    limpiarErroresSesiones();
+    unset($_SESSION['proyecto']);
+    unset($_SESSION['clases']);
+}

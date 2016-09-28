@@ -28,10 +28,15 @@ if(isset($_SESSION['errProyecto'])) {
 
 
     // <------- Operaciones de Borrado -------
+    $dir = "saves";
+    if(!is_dir($dir)) {
+        mkdir($dir);
+    }
+
     $_SESSION['proyecto'] = $_POST['proyecto'];
     
     $proy = json_encode(array($_SESSION['proyecto'],$_SESSION['clases']));
-    $file = "saves/".$_POST['proyecto'];
+    $file = $dir."/".$_POST['proyecto']."json";
     file_put_contents($file,$proy);
 
 }
