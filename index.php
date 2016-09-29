@@ -5,8 +5,8 @@
         print_r(session_id());
     }
 
-    print_r($_SESSION);
-    print_r($_POST);
+    //print_r($_SESSION);
+    //print_r($_POST);
 ?>
 
 <!DOCTYPE html>

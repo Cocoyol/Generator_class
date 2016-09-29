@@ -5,7 +5,9 @@ if(empty(session_id()) && !isset($_SESSION)) {
     session_start();
 }
 
-print_r($_SESSION);
-print_r($_POST);
+//print_r($_SESSION);
+//print_r($_POST);
 
 limpiarProyecto();
+
+header('Location: index.php');

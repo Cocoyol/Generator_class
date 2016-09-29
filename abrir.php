@@ -39,6 +39,8 @@ if(isset($_SESSION['errProyecto'])) {
 
 }
 
-print_r($_POST);
-print_r($_FILES);
-print_r($_SESSION);
+header('Location: index.php');
+
+//print_r($_POST);
+//print_r($_FILES);
+//print_r($_SESSION);

@@ -6,7 +6,7 @@
 
     }
 
-    print_r($_SESSION);
+    //print_r($_SESSION);
     $id = (isset($_GET['id']))?$_GET['id']:0;
 
 ?>
@@ -99,7 +99,6 @@
                     <div class="panel-body">
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-fields">
-
                                 <div class="displayinput">
                                 <?php
                                     if($id) {
@@ -128,6 +127,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="well">Todas las clases se crean con un campo obligatorio llamado "id", el cual funciona como la clave Primaria, y NO es necesario agregarlo.</div>
                 <div class="pull-right">
                     <a class="btn btn-default" href="index.php">Regresar</a>
                     <input class="btn btn-success" type="submit" value="Agregar">
